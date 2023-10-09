@@ -1,0 +1,83 @@
+spring:
+  application:
+    name: springflix-gateway
+  cloud:
+    refresh:
+      enabled: false
+    gateway:
+      routes:
+      - id: api_movies
+        uri: ${spring.cloud.discovery.client.simple.instances.springflix-movies.0.uri}
+        predicates:
+        - Path=/api/v1/movies/**
+        filters:
+        - name: CircuitBreaker
+          args:
+            name: circuitBreakerMovies
+            fallbackUri: forward:/fallback/movies/upcoming
+            statusCodes:
+            - 500
+            - 404
+      - id: api_posters
+        uri: ${spring.cloud.discovery.client.simple.instances.springflix-posters.0.uri}
+        predicates:
+        - Path=/api/v1/posters/**
+        filters:
+        - name: CircuitBreaker
+          args:
+            name: circuitBreakerPosters
+            fallbackUri: forward:/fallback/poster-not-found.png
+            statusCodes:
+            - 500
+            - 404
+      - id: api_trailers
+        uri: ${spring.cloud.discovery.client.simple.instances.springflix-trailers.0.uri}
+        predicates:
+        - Path=/api/v1/trailers/**
+      - id: main_page
+        uri: ${spring.cloud.discovery.client.simple.instances.springflix-webui.0.uri}
+        predicates:
+        - Path=/main.html
+        filters:
+        - RewritePath=/main.html,/index.html
+        - name: CircuitBreaker
+          args:
+            name: circuitBreakerWebUI
+            fallbackUri: forward:/fallback/maintenance.html
+      - id: webui
+        uri: ${spring.cloud.discovery.client.simple.instances.springflix-webui.0.uri}
+        predicates:
+        - Path=/**
+        filters:
+        - name: CircuitBreaker
+          args:
+            name: circuitBreakerWebUI
+            fallbackUri: forward:/fallback/maintenance.html
+      httpclient:
+        connect-timeout: 60000
+        response-timeout: 60000
+    loadbalancer:
+      eager-load:
+        clients:
+        - springflix-webui
+        - springflix-movies
+        - springflix-trailers
+        - springflix-posters
+    discovery:
+      client:
+        simple:
+          instances:
+            springflix-webui:
+            - uri: http://localhost:9000
+            springflix-movies:
+            - uri: http://localhost:8081
+            springflix-posters:
+            - uri: http://localhost:8082
+            springflix-trailers:
+            - uri: http://localhost:8083
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, info

@@ -1,0 +1,42 @@
+#@ load("@ytt:data", "data")
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: springflix-config
+type: Opaque
+stringData:
+  provider: sample
+  type: config
+  #@yaml/text-templated-strings
+  application.yaml: |
+    app:
+      tmdb:
+        api:
+          key: (@= data.values.tmdb_api_key @)
+    spring:
+      cloud:
+        discovery:
+          client:
+            simple:
+              instances:
+                springflix-gateway:
+                - uri: (@= "http://springflix.{}.{}".format(data.values.namespace, data.values.ingress_domain) @)
+                springflix-movies:
+                - uri: (@= "http://springflix-movies.{}.svc.cluster.local".format(data.values.namespace) @)
+                springflix-trailers:
+                - uri: (@= "http://springflix-trailers.{}.svc.cluster.local".format(data.values.namespace) @)
+                springflix-posters:
+                - uri: (@= "http://springflix-posters.{}.svc.cluster.local".format(data.values.namespace) @)
+                springflix-webui:
+                - uri: (@= "http://springflix-webui.{}.svc.cluster.local".format(data.values.namespace) @)
+---
+apiVersion: services.apps.tanzu.vmware.com/v1alpha1
+kind: ResourceClaim
+metadata:
+  name: springflix-config
+spec:
+  ref:
+    apiVersion: v1
+    kind: Secret
+    name: springflix-config
