@@ -1,0 +1,9 @@
+apiVersion: services.apps.tanzu.vmware.com/v1alpha1
+kind: ClassClaim
+metadata:
+  name: springflix-cache
+spec:
+  classRef:
+    name: redis-unmanaged
+  parameters:
+    storageGB: 1

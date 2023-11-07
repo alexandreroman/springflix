@@ -11,6 +11,8 @@ stringData:
   #@yaml/text-templated-strings
   application.yaml: |
     app:
+      cache:
+        ttl: 60m
       tmdb:
         api:
           key: (@= data.values.tmdb_api_key @)
@@ -21,7 +23,7 @@ stringData:
             simple:
               instances:
                 springflix-gateway:
-                - uri: (@= "http://springflix.{}.{}".format(data.values.namespace, data.values.ingress_domain) @)
+                - uri: (@= "{}".format(data.values.gateway_fqdn) @)
                 springflix-movies:
                 - uri: (@= "http://springflix-movies.{}.svc.cluster.local".format(data.values.namespace) @)
                 springflix-trailers:
