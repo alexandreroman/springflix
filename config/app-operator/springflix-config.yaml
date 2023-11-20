@@ -8,30 +8,8 @@ type: Opaque
 stringData:
   provider: sample
   type: config
-  #@yaml/text-templated-strings
-  application.yaml: |
-    app:
-      cache:
-        ttl: 60m
-      tmdb:
-        api:
-          key: (@= data.values.tmdb_api_key @)
-    spring:
-      cloud:
-        discovery:
-          client:
-            simple:
-              instances:
-                springflix-gateway:
-                - uri: (@= "{}".format(data.values.gateway_fqdn) @)
-                springflix-movies:
-                - uri: (@= "http://springflix-movies.{}.svc.cluster.local".format(data.values.namespace) @)
-                springflix-trailers:
-                - uri: (@= "http://springflix-trailers.{}.svc.cluster.local".format(data.values.namespace) @)
-                springflix-posters:
-                - uri: (@= "http://springflix-posters.{}.svc.cluster.local".format(data.values.namespace) @)
-                springflix-webui:
-                - uri: (@= "http://springflix-webui.{}.svc.cluster.local".format(data.values.namespace) @)
+  app.cache.ttl: 60m
+  app.tmdb.api.key: #@ data.values.tmdb_api_key
 ---
 apiVersion: services.apps.tanzu.vmware.com/v1alpha1
 kind: ResourceClaim

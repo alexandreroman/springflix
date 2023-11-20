@@ -1,3 +1,10 @@
+app:
+  urls:
+    webui: http://localhost:9000
+    movies: http://localhost:8081
+    posters: http://localhost:8082
+    trailers: http://localhost:8083
+
 spring:
   application:
     name: springflix-gateway
@@ -68,13 +75,13 @@ spring:
         simple:
           instances:
             springflix-webui:
-            - uri: http://localhost:9000
+            - uri: ${app.urls.webui}
             springflix-movies:
-            - uri: http://localhost:8081
+            - uri: ${app.urls.movies}
             springflix-posters:
-            - uri: http://localhost:8082
+            - uri: ${app.urls.posters}
             springflix-trailers:
-            - uri: http://localhost:8083
+            - uri: ${app.urls.trailers}
 
 management:
   endpoints:

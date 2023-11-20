@@ -36,7 +36,7 @@ spec:
       value: "8080"
   env:
   - name: SPRING_CONFIG_IMPORT
-    value: ${SERVICE_BINDING_ROOT}/config/
+    value: optional:configtree:/${SERVICE_BINDING_ROOT}/config/
   - name: MANAGEMENT_HEALTH_PROBES_ENABLED
     value: "true"
   - name: MANAGEMENT_ENDPOINT_HEALTH_PROBES_ADD_ADDITIONAL_PATHS
@@ -51,6 +51,26 @@ spec:
     value: "8081"
   - name: SERVER_PORT
     value: "8080"
+  - name: APP_URLS_WEBUI
+    valueFrom:
+      secretKeyRef:
+        name: springflix-urls
+        key: app.urls.webui
+  - name: APP_URLS_MOVIES
+    valueFrom:
+      secretKeyRef:
+        name: springflix-urls
+        key: app.urls.movies
+  - name: APP_URLS_POSTERS
+    valueFrom:
+      secretKeyRef:
+        name: springflix-urls
+        key: app.urls.posters
+  - name: APP_URLS_TRAILERS
+    valueFrom:
+      secretKeyRef:
+        name: springflix-urls
+        key: app.urls.trailers
   resources:
     requests:
       cpu: 500m
