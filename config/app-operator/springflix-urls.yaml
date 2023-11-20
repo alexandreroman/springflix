@@ -33,8 +33,6 @@ spec:
   template:
     type: Opaque
     stringData:
-      provider: sample
-      type: config
       app.urls.webui: $(.webui.status.url)
       app.urls.movies: $(.movies.status.url)
       app.urls.posters: $(.posters.status.url)
