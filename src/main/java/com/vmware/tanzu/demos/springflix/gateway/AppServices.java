@@ -18,8 +18,8 @@ package com.vmware.tanzu.demos.springflix.gateway;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
-@ConfigurationProperties(prefix = "app.urls")
-record AppProperties(
+@ConfigurationProperties(prefix = "app.services")
+record AppServices(
         String webui,
         String movies,
         String posters,

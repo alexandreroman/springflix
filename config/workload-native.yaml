@@ -5,6 +5,7 @@ metadata:
   labels:
     apps.tanzu.vmware.com/workload-type: web
     apps.tanzu.vmware.com/has-tests: "true"
+    apis.apps.tanzu.vmware.com/register-api: "true"
     app.kubernetes.io/part-of: springflix
 spec:
   source:
@@ -51,26 +52,26 @@ spec:
     value: "8081"
   - name: SERVER_PORT
     value: "8080"
-  - name: APP_URLS_WEBUI
+  - name: APP_SERVICES_WEBUI
     valueFrom:
       secretKeyRef:
-        name: springflix-urls
-        key: app.urls.webui
-  - name: APP_URLS_MOVIES
+        name: springflix-services
+        key: app.services.webui
+  - name: APP_SERVICES_MOVIES
     valueFrom:
       secretKeyRef:
-        name: springflix-urls
-        key: app.urls.movies
-  - name: APP_URLS_POSTERS
+        name: springflix-services
+        key: app.services.movies
+  - name: APP_SERVICES_POSTERS
     valueFrom:
       secretKeyRef:
-        name: springflix-urls
-        key: app.urls.posters
-  - name: APP_URLS_TRAILERS
+        name: springflix-services
+        key: app.services.posters
+  - name: APP_SERVICES_TRAILERS
     valueFrom:
       secretKeyRef:
-        name: springflix-urls
-        key: app.urls.trailers
+        name: springflix-services
+        key: app.services.trailers
   resources:
     requests:
       cpu: 500m
@@ -90,6 +91,14 @@ spec:
     value:
       apps.tanzu.vmware.com/pipeline: test
       apps.tanzu.vmware.com/language: java
+  - name: api_descriptor
+    value:
+      type: openapi
+      location:
+        path: /api/openapi
+      owner: default/default-team
+      system: default/springflix
+      description: SpringFlix API
   serviceClaims:
   - name: config
     ref:

@@ -23,19 +23,19 @@ import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
 @Component
-class AppPropertiesLogger {
-    private final Logger logger = LoggerFactory.getLogger(AppPropertiesLogger.class);
-    private final AppProperties appProperties;
+class AppServicesLogger {
+    private final Logger logger = LoggerFactory.getLogger(AppServicesLogger.class);
+    private final AppServices appServices;
 
-    AppPropertiesLogger(AppProperties appProperties) {
-        this.appProperties = appProperties;
+    AppServicesLogger(AppServices appServices) {
+        this.appServices = appServices;
     }
 
     @EventListener
     void onApplicationReady(ApplicationReadyEvent e) {
-        logger.info("Using Web UI URL: {}", appProperties.webui());
-        logger.info("Using Movies URL: {}", appProperties.movies());
-        logger.info("Using Posters URL: {}", appProperties.posters());
-        logger.info("Using Trailers URL: {}", appProperties.trailers());
+        logger.info("Using Web UI URL: {}", appServices.webui());
+        logger.info("Using Movies URL: {}", appServices.movies());
+        logger.info("Using Posters URL: {}", appServices.posters());
+        logger.info("Using Trailers URL: {}", appServices.trailers());
     }
 }

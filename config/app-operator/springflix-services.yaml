@@ -1,9 +1,9 @@
 apiVersion: secretgen.carvel.dev/v1alpha1
 kind: SecretTemplate
 metadata:
-  name: springflix-urls
+  name: springflix-services
 spec:
-  serviceAccountName: springflix-urls-reader
+  serviceAccountName: springflix-services-reader
   inputResources:
   - name: gateway
     ref:
@@ -33,21 +33,21 @@ spec:
   template:
     type: Opaque
     stringData:
-      app.urls.webui: $(.webui.status.url)
-      app.urls.movies: $(.movies.status.url)
-      app.urls.posters: $(.posters.status.url)
-      app.urls.trailers: $(.trailers.status.url)
-      app.urls.gateway: $(.gateway.status.url)
+      app.services.webui: $(.webui.status.url)
+      app.services.movies: $(.movies.status.url)
+      app.services.posters: $(.posters.status.url)
+      app.services.trailers: $(.trailers.status.url)
+      app.services.gateway: $(.gateway.status.url)
 ---
 apiVersion: v1
 kind: ServiceAccount
 metadata:
-  name: springflix-urls-reader
+  name: springflix-services-reader
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
-  name: springflix-urls-reader
+  name: springflix-services-reader
 rules:
 - apiGroups:
   - serving.knative.dev
@@ -61,11 +61,11 @@ rules:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
-  name: springflix-urls-reader
+  name: springflix-services-reader
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
-  name: springflix-urls-reader
+  name: springflix-services-reader
 subjects:
 - kind: ServiceAccount
-  name: springflix-urls-reader
+  name: springflix-services-reader

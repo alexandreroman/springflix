@@ -1,5 +1,8 @@
 app:
-  urls:
+  api:
+    title: SpringFlix API
+    version: 1
+  services:
     webui: http://localhost:9000
     movies: http://localhost:8081
     posters: http://localhost:8082
@@ -9,8 +12,6 @@ spring:
   application:
     name: springflix-gateway
   cloud:
-    refresh:
-      enabled: false
     gateway:
       routes:
       - id: api_movies
@@ -63,25 +64,21 @@ spring:
       httpclient:
         connect-timeout: 60000
         response-timeout: 60000
-    loadbalancer:
-      eager-load:
-        clients:
-        - springflix-webui
-        - springflix-movies
-        - springflix-trailers
-        - springflix-posters
     discovery:
       client:
         simple:
           instances:
             springflix-webui:
-            - uri: ${app.urls.webui}
+            - uri: ${app.services.webui}
             springflix-movies:
-            - uri: ${app.urls.movies}
+            - uri: ${app.services.movies}
             springflix-posters:
-            - uri: ${app.urls.posters}
+            - uri: ${app.services.posters}
             springflix-trailers:
-            - uri: ${app.urls.trailers}
+            - uri: ${app.services.trailers}
+
+server:
+  port: ${PORT:8080}
 
 management:
   endpoints:
