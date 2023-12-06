@@ -31,10 +31,10 @@ import java.util.List;
 
 @Controller
 class FallbackController {
-    private final Movie bootifulMovie = new Movie("bootiful", "Bootiful Spring Boot 3",
+    private final Movie bootifulMovie = new Movie("bootiful", "Spring Boot 3.2",
             LocalDate.of(2023, 6, 13));
     private final MovieTrailers bootifulTrailers = new MovieTrailers("bootiful", List.of(
-            new MovieTrailers.Item(URI.create("https://www.youtube.com/watch?v=FvDSL3pSKNQ"), bootifulMovie.releaseDate)
+            new MovieTrailers.Item(URI.create("https://www.youtube.com/watch?v=dMhpDdR6nHw"), bootifulMovie.releaseDate)
     ));
     @Value("classpath:/fallback/poster-not-found.png")
     private Resource posterNotFound;
