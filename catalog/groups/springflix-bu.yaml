@@ -1,0 +1,16 @@
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: springflix-bu
+  description: SpringFlix BU
+  links:
+  - url: https://github.com/alexandreroman/springflix
+    title: Website
+spec:
+  type: sub-department
+  profile:
+    displayName: SpringFlix team
+    email: contact@springflix-corp.com
+    picture: https://raw.githubusercontent.com/alexandreroman/tap-demo-kit-gitops/main/icon.png
+  parent: springflix-corp
+  children: [springflix-dev-team]

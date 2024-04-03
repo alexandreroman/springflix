@@ -1,0 +1,28 @@
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: springflix-team
+  description: SpringFlix team
+  links:
+  - url: https://github.com/alexandreroman/springflix
+    title: Website
+spec:
+  type: team
+  profile:
+    displayName: SpringFlix team
+    email: contact@springflix-corp.com
+    picture: https://raw.githubusercontent.com/alexandreroman/tap-demo-kit-gitops/main/icon.png
+  parent: springflix-bu
+  children: [springflix-dev-team]
+---
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: springflix-aro
+spec:
+  profile:
+    displayName: Alexandre Roman
+    email: alexandre.roman@broadcom.com
+    picture: https://avatars.githubusercontent.com/u/665131
+  memberOf:
+  - springflix-team

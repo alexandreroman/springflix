@@ -1,0 +1,19 @@
+apiVersion: backstage.io/v1alpha1
+kind: Location
+metadata:
+  name: springflix-catalog-info
+  description: Catalog for the 'SpringFlix' app
+  tags:
+  - web
+spec:
+  targets:
+  - ./components/springflix.yaml
+  - ./components/springflix-webui.yaml
+  - ./components/springflix-movies.yaml
+  - ./components/springflix-posters.yaml
+  - ./components/springflix-trailers.yaml
+  - ./resources/springflix-cache.yaml
+  - ./systems/springflix-system.yaml
+  - ./groups/springflix-org.yaml
+  - ./groups/springflix-bu.yaml
+  - ./groups/springflix-team.yaml

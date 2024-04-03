@@ -1,0 +1,11 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: springflix-trailers
+  annotations:
+    backstage.io/kubernetes-label-selector: app.kubernetes.io/part-of=springflix-trailers
+spec:
+  type: service
+  lifecycle: experimental
+  owner: springflix-team
+  system: springflix

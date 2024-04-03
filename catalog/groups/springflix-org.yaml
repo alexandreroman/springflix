@@ -1,0 +1,12 @@
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: springflix-corp
+  description: SpringFlix corp
+spec:
+  type: organization
+  profile:
+    displayName: SpringFlix corp
+    email: contact@springflix-corp.com
+    picture: https://raw.githubusercontent.com/alexandreroman/tap-demo-kit-gitops/main/icon.png
+  children: []
